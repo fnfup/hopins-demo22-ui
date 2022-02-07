@@ -27,8 +27,8 @@ export interface UserOrdersDto {
     orders: UserOrder[];
 }
 
-export const OrderStatusEnum = {
-    none: "NONE",
-    successful: "SUCCESSFUL",
-    pending: "PENDING"
+export enum OrderStatusEnum {
+    none = "NONE",
+    successful = "SUCCESSFUL",
+    pending = "PENDING"
 }

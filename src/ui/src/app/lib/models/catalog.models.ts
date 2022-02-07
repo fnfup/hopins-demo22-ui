@@ -17,3 +17,12 @@ export interface MusicCatalogDto {
     music: MusicTrack[];
 }
 
+export interface MusicArtist {
+    id: number;
+    name: string;
+}
+
+export interface MusicGenre {
+    id: number;
+    name: string;
+}
