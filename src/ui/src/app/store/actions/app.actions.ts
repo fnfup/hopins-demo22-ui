@@ -22,7 +22,7 @@ export namespace AppActions {
     );
 
     export const UpdateOrderStatus = createAction(
-        AppActionType.UpdateLibraryStatus,
+        AppActionType.UpdateOrderStatus,
         props<{ orderStatus: OrderStatusEnum }>()
     );
 
@@ -32,7 +32,7 @@ export namespace AppActions {
     );
 
     export const ClearOrderItems = createAction(
-        AppActionType.UpdateLibraryStatus
+        AppActionType.ClearOrderItems
     );
 
     export const UpdateMusicCatalog = createAction(
@@ -67,17 +67,17 @@ export namespace AppActions {
     );
 
     export const RequestOrderHistory = createAction(
-        AppActionType.UpdateLibrary,
+        AppActionType.RequestOrderHistory,
         props<{ userId: number }>()
     );
 
     export const SubmitOrder = createAction(
-        AppActionType.UpdateLibraryStatus,
+        AppActionType.SubmitOrder,
         props<{ payload: MusicOrderDto }>()
     );
 
     export const SearchMusicCatalog = createAction(
-        AppActionType.UpdateOrderItems,
+        AppActionType.SearchMusicCatalog,
         props<{ filter: SearchFilter }>()
     );
 

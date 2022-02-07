@@ -27,14 +27,12 @@ export class RequestApiService {
     constructor(private http: HttpClient) { }
 
     getUserMusicLibrary(userId: number) {
-        const url = apiHost + endpoints.userLib
-            + '/' + userId;
+        const url = apiHost + endpoints.userLib + userId;
         return this.http.get(url).pipe();
     }
 
     toggleLibraryStatus(trackId: number) {
-        const url = apiHost + endpoints.userLib
-            + '/' + trackId;
+        const url = apiHost + endpoints.userLib + trackId;
         return this.http.put(url, {}).pipe();
     }
 
@@ -59,8 +57,7 @@ export class RequestApiService {
     }
 
     getUserOrders(userId: number) {
-        const url = apiHost + endpoints.orders
-            + '/' + userId;
+        const url = apiHost + endpoints.orders + userId;
         return this.http.get(url).pipe();
     }
 

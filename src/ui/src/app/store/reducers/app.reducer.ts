@@ -27,14 +27,15 @@ export const appDataReducer = createReducer<IAppState>(
     on( AppActions.UpdateOrderItems,
         (state, { orderCart }) => ({ ...state, orderCart }) ),
     on( AppActions.ClearOrderItems, 
-        (state) => ({ ...state, orderCart: [] }) ),
+        (state) => ({ ...state, orderCart: [] }) )
 );
 
-export const metaReducers: MetaReducer[] = [];
+export const metaReducers: MetaReducer[] = [debugReducer];
 
-if (!environment.production) {    
-    metaReducers.unshift(debugReducer);
-}
+
+// if (!environment.production) {    
+//     metaReducers.unshift(debugReducer);
+// }
 
 export const reducerCore: ActionReducerMap<IAppRootState> = {
     router: routerReducer,

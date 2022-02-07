@@ -2,14 +2,13 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
 import { catchError, EMPTY, map, mergeMap, of, switchMap, withLatestFrom } from "rxjs";
-import { Deserialize } from "src/app/lib/helpers/deserialize";
 import { UpdateRequestFilters } from "src/app/lib/helpers/filter.operator";
-import { MusicCatalogDto, MusicTrack } from "src/app/lib/models/catalog.models";
-import { LibraryStatusDto, LibraryStatusEnum, LibraryStatusRequestDto } from "src/app/lib/models/library.models";
+import { MusicArtist, MusicCatalogDto, MusicGenre, MusicTrack } from "src/app/lib/models/catalog.models";
+import { LibraryStatusRequestDto } from "src/app/lib/models/library.models";
 import { RequestApiService } from "src/app/services/request.service";
 import { AppActions } from "../actions/app.actions";
 import { IAppState } from "../models/appstate.model";
-import { selecMusicCatalog, selectAppliedFilters } from "../selectors/selectors";
+import { selectAppliedFilters } from "../selectors/selectors";
 
 
 @Injectable()
@@ -45,44 +44,26 @@ export class CatalogEffects {
         ), { dispatch: true });
 
 
-    libraryStatusEffect$ = createEffect(() => this.actions$
-        .pipe(
-            ofType(AppActions.RequestLibraryStatus),
-            switchMap(action => this.apiService.getLibraryStatus(action.request)),
-            withLatestFrom(this.store.select(selecMusicCatalog)),
-            mergeMap(returnTuple => {
-
-                let results = returnTuple[0] as LibraryStatusDto[];
-                let catalog = returnTuple[1] as MusicCatalogDto;
-
-                let updatedTracks = catalog?.music.map(entry => {
-                    let match = results.find(
-                        status => entry.id == status.trackId);
-
-                    let updateValue = Deserialize(entry) as MusicTrack;
-
-                    if (match) {
-                        updateValue.status = match.status as LibraryStatusEnum;
-                    }
-
-                    return updateValue;
-                });
-
-                let update = Deserialize(catalog) as MusicCatalogDto;
-                if (updatedTracks) { update.music = updatedTracks };
-
+        requestAvailableArtists$ = createEffect(() => this.actions$.pipe(
+            ofType(AppActions.RequestAvailableArtists),
+            switchMap(() => this.apiService.getArtists()),
+            mergeMap(results => {
                 return of(
-                    AppActions.UpdateMusicCatalog({ musicCatalog: update }));
+                    AppActions
+                    .UpdateArtistList({ artists: <MusicArtist[]>results }));
             }),
             catchError(err => EMPTY)
         ), { dispatch: true });
 
-
-    toggleLibraryStatus$ = createEffect(() => this.actions$
-        .pipe(
-            ofType(AppActions.ToggleLibraryStatus),
-            switchMap(action => this.apiService.toggleLibraryStatus(action.userLibraryId)),
+        requestAvailableGenres$ = createEffect(() => this.actions$.pipe(
+            ofType(AppActions.RequestAvailableGenres),
+            switchMap(() => this.apiService.getGenres()),
+            mergeMap(results => {
+                return of(
+                    AppActions
+                    .UpdateGenreList({ genres: <MusicGenre[]>results }));
+            }),
             catchError(err => EMPTY)
-        ), { dispatch: false });
+        ), { dispatch: true });
 
 }

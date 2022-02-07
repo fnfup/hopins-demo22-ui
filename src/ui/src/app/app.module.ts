@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http'
 import { metaReducers, reducerCore } from './store/reducers/app.reducer';
 import { RequestApiService } from './services/request.service';
 import { CatalogEffects } from './store/effects/catalog.effects';
+import { OrderEffects } from './store/effects/order.effects';
+import { LibraryEffects } from './store/effects/library.effects';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { CatalogEffects } from './store/effects/catalog.effects';
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducerCore, { metaReducers }),
-    EffectsModule.forRoot([CatalogEffects]),
+    EffectsModule.forRoot([CatalogEffects, OrderEffects, LibraryEffects]),
     StoreRouterConnectingModule.forRoot()
   ],
   providers: [RequestApiService],

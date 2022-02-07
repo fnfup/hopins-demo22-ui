@@ -3,7 +3,7 @@ import { AppUser } from "./domain.models";
 
 export interface MusicOrderDto {
     userId: number;
-    items: [];
+    items: number[];
 }
 
 export interface OrderItem {

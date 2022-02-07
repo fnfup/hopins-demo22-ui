@@ -1,8 +1,8 @@
 import { LibraryStatusEnum } from "./library.models";
 
 export interface SearchFilter {
-    artist?:[];
-    genre?:[];
+    artist?: number[];
+    genre?: number[];
 }
 
 export interface MusicTrack {
