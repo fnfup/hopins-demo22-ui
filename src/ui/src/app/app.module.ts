@@ -9,6 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http'
 import { reducerCore } from './store/reducers/app.reducer';
+import { RequestApiService } from './services/request.service';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,7 @@ import { reducerCore } from './store/reducers/app.reducer';
     EffectsModule.forRoot([]),
     StoreRouterConnectingModule.forRoot()
   ],
-  providers: [],
+  providers: [RequestApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
