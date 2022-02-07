@@ -292,6 +292,21 @@
       visibility: hidden;
     }
   }
+
+  .json-container {
+    display: inline-flex;
+    flex-flow: row wrap;
+    width: 600px;
+  }
+
+  .json-title {
+    flex: 0 0 100%;
+    height: 30px;
+  }
+
+  .json-viewer {
+    width: 800px;
+  }
 </style>
 
 <!-- Toolbar -->
@@ -353,12 +368,14 @@
 
   <!-- Resources -->
   <h2>Ngrx Redux Pattern</h2>
-  <p>Use the buttons to try different API features and see the updates on your dev console</p>
+  <p>Use the buttons to try different API features and see the updates on your dev console or below</p>
   <br/><br/>
   <p>NOTE: To submit a test order you must first click "User Library" to get a working set.
     <br/>Try refreshing and following those steps to get a valid submission.
     <br/>You can then click "Order History" to see the new entry in the database.</p>
-
+  <br/>
+  <br/>
+  
   <div class="card-container">
     <a class="card" target="_blank" rel="noopener" (click)="submitApiRequest(1)">
       <svg class="material-icons" width="24" height="24" viewBox="0 0 24 24">
@@ -403,7 +420,18 @@
 
   </div>
 
-  <div class="card-container"></div>
+  <br/>
+  <br/>
+
+  <div class="card-container json-container">
+    <div class="json-title">
+      <p>JSON Viewer:</p>
+    <!-- <p style="margin-bottom: 10px;"></p> -->
+    </div>
+    <div class="json-viewer">
+      <ngx-json-viewer [json]="data" [expanded]="false" [depth]="4"></ngx-json-viewer>
+    </div>
+  </div>
 
   <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
     <title>Gray Clouds Background</title>

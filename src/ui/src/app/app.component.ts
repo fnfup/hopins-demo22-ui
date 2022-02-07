@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as _ from 'lodash';
 import { catchError, EMPTY, mergeMap, of, take, tap, withLatestFrom } from 'rxjs';
@@ -6,24 +6,43 @@ import { UserMusic } from './lib/models/library.models';
 import { MusicTrack } from './lib/models/catalog.models';
 import { AppActions } from './store/actions/app.actions';
 import { IAppState } from './store/models/appstate.model';
-import { selecMusicCatalog, selectUserLibrary } from './store/selectors/selectors';
+import { appStateSelector, selecMusicCatalog, selectUserLibrary } from './store/selectors/selectors';
 import { MusicOrderDto } from './lib/models/order.models';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
   title = 'Angular 13 + Spring Boot + MSSQL + Azure';
 
+  data: IAppState = <any>{
+    "initial": "just a start"
+  };
+
   constructor(
-    private store: Store<IAppState>) {
+    private store: Store<IAppState>,
+    private cdr: ChangeDetectorRef) {
   }
 
   ngOnInit() {
+    this.streamAppState();
+
     this.store.dispatch(
       AppActions.SearchMusicCatalog({ filter: {} }))
+  }
+
+  streamAppState() {
+    this.store.pipe(
+      select(appStateSelector),
+      tap(state => {
+        this.data = state;
+        console.log('updating data state');
+        this.cdr.detectChanges();
+      })
+    ).subscribe();
   }
 
   public submitApiRequest(option: number) {

@@ -13,6 +13,8 @@ import { RequestApiService } from './services/request.service';
 import { CatalogEffects } from './store/effects/catalog.effects';
 import { OrderEffects } from './store/effects/order.effects';
 import { LibraryEffects } from './store/effects/library.effects';
+import { NgxJsonViewerModule } from 'ngx-json-viewer';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import { LibraryEffects } from './store/effects/library.effects';
     CommonModule,
     HttpClientModule,
     BrowserModule,
+    FormsModule,
+    NgxJsonViewerModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot(reducerCore, { metaReducers }),
