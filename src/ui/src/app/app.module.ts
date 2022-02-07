@@ -8,8 +8,9 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http'
-import { reducerCore } from './store/reducers/app.reducer';
+import { metaReducers, reducerCore } from './store/reducers/app.reducer';
 import { RequestApiService } from './services/request.service';
+import { CatalogEffects } from './store/effects/catalog.effects';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,8 @@ import { RequestApiService } from './services/request.service';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot(reducerCore),
-    EffectsModule.forRoot([]),
+    StoreModule.forRoot(reducerCore, { metaReducers }),
+    EffectsModule.forRoot([CatalogEffects]),
     StoreRouterConnectingModule.forRoot()
   ],
   providers: [RequestApiService],

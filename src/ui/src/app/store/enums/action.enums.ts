@@ -15,6 +15,7 @@ export enum AppActionType {
     // actions that will be for effects only
     RequestUserLibrary = '[Library] request user library data',
     ToggleLibraryStatus = '[Library] toggle music track library status',
+    RequestLibraryStatus = '[Library] request music track library status',
     RequestOrderHistory = '[Order] request order history data',
     SubmitOrder = '[Order] submit order',
     SearchMusicCatalog = '[Catalog] search music catalog',

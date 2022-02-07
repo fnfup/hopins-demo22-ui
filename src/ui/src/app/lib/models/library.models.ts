@@ -7,10 +7,10 @@ export interface LibraryStatusDto {
     status: string;
 }
 
-export const LibraryStatusEnum  = {
-    none: "NONE",
-    active: "ACTIVE",
-    inactive: "INACTIVE"
+export enum LibraryStatusEnum {
+    none = "NONE",
+    active = "ACTIVE",
+    inactive = "INACTIVE"
 }
 
 export interface LibraryStatusRequestDto {

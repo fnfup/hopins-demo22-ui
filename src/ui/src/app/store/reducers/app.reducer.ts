@@ -1,8 +1,10 @@
 import { routerReducer } from "@ngrx/router-store";
-import { ActionReducerMap, createReducer, on } from "@ngrx/store";
+import { ActionReducerMap, createReducer, MetaReducer, on } from "@ngrx/store";
 import { AppActions } from "../actions/app.actions";
 import { IAppRootState, IAppState } from "../models/appstate.model";
 import { initialState } from "./initial.state";
+import { environment } from '../../../environments/environment';
+import { debugReducer } from "./debug.reducer";
 
 
 export const appDataReducer = createReducer<IAppState>(
@@ -28,6 +30,11 @@ export const appDataReducer = createReducer<IAppState>(
         (state) => ({ ...state, orderCart: [] }) ),
 );
 
+export const metaReducers: MetaReducer[] = [];
+
+if (!environment.production) {    
+    metaReducers.unshift(debugReducer);
+}
 
 export const reducerCore: ActionReducerMap<IAppRootState> = {
     router: routerReducer,

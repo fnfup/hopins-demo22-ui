@@ -1,9 +1,10 @@
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '@env/environment';
+import { environment } from '../../environments/environment';
 import { SearchFilter } from '../lib/models/catalog.models';
 import { MusicOrderDto } from '../lib/models/order.models';
+import { LibraryStatusRequestDto } from '../lib/models/library.models';
 
 const apiHost = environment.requestApi + '/';
 
@@ -37,9 +38,9 @@ export class RequestApiService {
         return this.http.put(url, {}).pipe();
     }
 
-    getLibraryStatus(trackIds: number[]) {
+    getLibraryStatus(request: LibraryStatusRequestDto) {
         const url = apiHost + endpoints.libStatus;
-        return this.http.post(url, trackIds).pipe();
+        return this.http.post(url, request).pipe();
     }
 
     getArtists() {

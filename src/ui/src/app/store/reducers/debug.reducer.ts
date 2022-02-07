@@ -2,7 +2,7 @@ import { ActionReducer } from "@ngrx/store";
 import { IAppState } from "../models/appstate.model";
 
 
-export function debug(
+export function debugReducer(
     reducer: ActionReducer<IAppState>
   ): ActionReducer<IAppState> {
     return function (state, action) {

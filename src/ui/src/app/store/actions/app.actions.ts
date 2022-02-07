@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { MusicArtist, MusicCatalogDto, MusicGenre, SearchFilter } from "src/app/lib/models/catalog.models";
-import { LibraryStatusDto, UserLibraryDto } from "src/app/lib/models/library.models";
+import { LibraryStatusDto, LibraryStatusRequestDto, UserLibraryDto } from "src/app/lib/models/library.models";
 import { MusicOrderDto, OrderStatusEnum, UserOrdersDto } from "src/app/lib/models/order.models";
 import { AppActionType } from "../enums/action.enums";
 
@@ -59,6 +59,11 @@ export namespace AppActions {
     export const ToggleLibraryStatus = createAction(
         AppActionType.ToggleLibraryStatus,
         props<{ userLibraryId: number }>()
+    );
+
+    export const RequestLibraryStatus = createAction(
+        AppActionType.RequestLibraryStatus,
+        props<{ request: LibraryStatusRequestDto }>()
     );
 
     export const RequestOrderHistory = createAction(

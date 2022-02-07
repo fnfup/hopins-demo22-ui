@@ -1,3 +1,4 @@
+import { LibraryStatusEnum } from "./library.models";
 
 export interface SearchFilter {
     artist?:[];
@@ -10,6 +11,8 @@ export interface MusicTrack {
     album: string;
     artist: string;
     genre: string;
+    // web value only
+    status: LibraryStatusEnum;
 }
 
 export interface MusicCatalogDto {

@@ -9,7 +9,7 @@ export interface IAppRootState{
 }
 
 export interface IAppState {
-    appliedFilters?: SearchFilter;
+    appliedFilters: SearchFilter;
     musicLibrary?: UserLibraryDto;
     musicLibraryStatus: LibraryStatusDto[];
     musicCatalog?: MusicCatalogDto;
