@@ -22,6 +22,8 @@ export class AppComponent {
     "initial": "just a start"
   };
 
+  isIframe = window !== window.parent && !window.opener;
+
   constructor(
     private store: Store<IAppState>,
     private cdr: ChangeDetectorRef) {
