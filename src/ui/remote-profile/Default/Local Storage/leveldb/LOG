@@ -1,0 +1,5 @@
+2022/02/07-04:00:17.700 2d07 Creating DB /Users/egathura/Documents/workspace/hopkins-demo22/hopkins-demo22-ui/src/ui/remote-profile/Default/Local Storage/leveldb since it was missing.
+2022/02/07-04:00:17.935 2d07 Reusing MANIFEST /Users/egathura/Documents/workspace/hopkins-demo22/hopkins-demo22-ui/src/ui/remote-profile/Default/Local Storage/leveldb/MANIFEST-000001
+2022/02/07-05:07:44.009 472f Level-0 table #5: started
+2022/02/07-05:07:44.061 472f Level-0 table #5: 7908 bytes OK
+2022/02/07-05:07:44.107 472f Delete type=0 #3

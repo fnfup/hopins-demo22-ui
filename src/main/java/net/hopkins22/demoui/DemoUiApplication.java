@@ -2,12 +2,24 @@ package net.hopkins22.demoui;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
+import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-@SpringBootApplication
-public class DemoUiApplication {
+@Controller
+@SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
+public class DemoUiApplication implements ErrorController  {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoUiApplication.class, args);
+	}
+
+	private static final String PATH = "/error";
+
+	@RequestMapping(value = PATH)
+	public String error() {
+		return "forward:/index.html";
 	}
 
 }

@@ -1,0 +1,443 @@
+
+<style>
+  :host {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 14px;
+    color: #333;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 8px 0;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .spacer {
+    flex: 1;
+  }
+
+  .toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    background-color: #1976d2;
+    color: white;
+    font-weight: 600;
+  }
+
+  .toolbar img {
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo {
+    height: 40px;
+    margin: 0 8px;
+  }
+
+  .toolbar #youtube-logo {
+    height: 40px;
+    margin: 0 16px;
+  }
+
+  .toolbar #twitter-logo:hover,
+  .toolbar #youtube-logo:hover {
+    opacity: 0.8;
+  }
+
+  .content {
+    display: flex;
+    margin: 82px auto 32px;
+    padding: 0 16px;
+    max-width: 960px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  svg.material-icons {
+    height: 24px;
+    width: auto;
+  }
+
+  svg.material-icons:not(:last-child) {
+    margin-right: 8px;
+  }
+
+  .card svg.material-icons path {
+    fill: #888;
+  }
+
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 16px;
+  }
+
+  .card {
+    all: unset;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    background-color: #fafafa;
+    height: 40px;
+    width: 200px;
+    margin: 0 8px 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+    line-height: 24px;
+  }
+
+  .card-container .card:not(:last-child) {
+    margin-right: 0;
+  }
+
+  .card.card-small {
+    height: 16px;
+    width: 168px;
+  }
+
+  .card-container .card:not(.highlight-card) {
+    cursor: pointer;
+  }
+
+  .card-container .card:not(.highlight-card):hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+  }
+
+  .card-container .card:not(.highlight-card):hover .material-icons path {
+    fill: rgb(105, 103, 103);
+  }
+
+  .card.highlight-card {
+    background-color: #1976d2;
+    color: white;
+    font-weight: 600;
+    border: none;
+    width: auto;
+    min-width: 30%;
+    position: relative;
+  }
+
+  .card.card.highlight-card span {
+    margin-left: 60px;
+  }
+
+  svg#rocket {
+    width: 80px;
+    position: absolute;
+    left: -10px;
+    top: -24px;
+  }
+
+  svg#rocket-smoke {
+    height: calc(100vh - 95px);
+    position: absolute;
+    top: 10px;
+    right: 180px;
+    z-index: -10;
+  }
+
+  a,
+  a:visited,
+  a:hover {
+    color: #1976d2;
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: #125699;
+  }
+
+  .terminal {
+    position: relative;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 6px;
+    padding-top: 45px;
+    margin-top: 8px;
+    overflow: hidden;
+    background-color: rgb(15, 15, 16);
+  }
+
+  .terminal::before {
+    content: "\2022 \2022 \2022";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: rgb(58, 58, 58);
+    color: #c2c3c4;
+    width: 100%;
+    font-size: 2rem;
+    line-height: 0;
+    padding: 14px 0;
+    text-indent: 4px;
+  }
+
+  .terminal pre {
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
+    color: white;
+    padding: 0 1rem 1rem;
+    margin: 0;
+  }
+
+  .circle-link {
+    height: 40px;
+    width: 40px;
+    border-radius: 40px;
+    margin: 8px;
+    background-color: white;
+    border: 1px solid #eeeeee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    transition: 1s ease-out;
+  }
+
+  .circle-link:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  footer {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    line-height: 20px;
+  }
+
+  footer a {
+    display: flex;
+    align-items: center;
+  }
+
+  .github-star-badge {
+    color: #24292e;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    padding: 3px 10px;
+    border: 1px solid rgba(27,31,35,.2);
+    border-radius: 3px;
+    background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+    margin-left: 4px;
+    font-weight: 600;
+  }
+
+  .github-star-badge:hover {
+    background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
+    border-color: rgba(27,31,35,.35);
+    background-position: -.5em;
+  }
+
+  .github-star-badge .material-icons {
+    height: 16px;
+    width: 16px;
+    margin-right: 4px;
+  }
+
+  svg#clouds {
+    position: fixed;
+    bottom: -160px;
+    left: -230px;
+    z-index: -10;
+    width: 1920px;
+  }
+
+  /* Responsive Styles */
+  @media screen and (max-width: 767px) {
+    .card-container > *:not(.circle-link) ,
+    .terminal {
+      width: 100%;
+    }
+
+    .card:not(.highlight-card) {
+      height: 16px;
+      margin: 8px 0;
+    }
+
+    .card.highlight-card span {
+      margin-left: 72px;
+    }
+
+    svg#rocket-smoke {
+      right: 120px;
+      transform: rotate(-5deg);
+    }
+  }
+
+  @media screen and (max-width: 575px) {
+    svg#rocket-smoke {
+      display: none;
+      visibility: hidden;
+    }
+  }
+
+  .json-container {
+    display: inline-flex;
+    flex-flow: row wrap;
+    width: 600px;
+  }
+
+  .json-title {
+    flex: 0 0 100%;
+    height: 30px;
+  }
+
+  .json-viewer {
+    width: 800px;
+  }
+</style>
+
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <img
+    width="40"
+    alt="Angular Logo"
+    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+  />
+  <span>Hello To EGathura's John Hopkins - Full Stack Demo</span>
+    <div class="spacer"></div>
+
+    <a aria-label="Spring Boot MVC" target="_blank" rel="noopener" href="https://springboot.io" title="SpringBoot">
+      <svg xmlns="http://www.w3.org/2000/svg" width="120" height="60">
+        <path d="M39.17 13.265a17.24 17.24 0 0 1-1.998 3.544c-4.778-4.776-11.755-6.613-18.265-4.8S7.357 18.966 5.717 25.52 6.086 39 10.98 43.66l.693.612a18.75 18.75 0 0 0 30.781-13.005c.51-4.775-.89-10.817-3.284-18zM13.647 43.767c-.408.504-1.08.713-1.702.53s-1.072-.725-1.14-1.37.26-1.267.83-1.577 1.27-.244 1.774.164c.687.557.793 1.566.236 2.254zm25.444-5.616c-4.628 6.165-14.51 4.086-20.847 4.384 0 0-1.123.066-2.254.252 0 0 .426-.182.972-.387 4.45-1.55 6.553-1.847 9.256-3.238 5.09-2.587 10.123-8.253 11.17-14.143-1.936 5.666-7.815 10.538-13.167 12.517-3.668 1.352-10.294 2.668-10.294 2.668l-.267-.143C9.15 37.87 9.01 28.106 17.2 24.957c3.6-1.383 7.025-.624 10.902-1.55 4.14-.984 8.93-4.086 10.88-8.133 2.18 6.475 4.806 16.6.097 22.88z" fill="#68bd45"/>
+        <g transform="matrix(.57047 0 0 .57047 11.197731 16.054489)" fill="#68bd45">
+          <path d="M61.807 35.152a2.11 2.11 0 0 1-1.019-1.906 2.197 2.197 0 0 1 2.227-2.222 2.401 2.401 0 0 1 1.177.316 12.656 12.656 0 0 0 6.902 2.314c2.36 0 3.72-1.02 3.72-2.6v-.087c0-1.86-2.55-2.498-5.357-3.36-3.537-1.02-7.488-2.452-7.488-7.034v-.092c0-4.542 3.767-7.3 8.533-7.3a16.505 16.505 0 0 1 7.493 1.957 2.335 2.335 0 0 1 1.315 2.09 2.212 2.212 0 0 1-2.268 2.227 2.131 2.131 0 0 1-1.086-.275c-1.952-1.02-3.95-1.636-5.607-1.636-2.13 0-3.36 1.02-3.36 2.36v.092c0 1.77 2.6 2.498 5.403 3.405 3.497 1.1 7.442 2.676 7.442 6.988v.092c0 5.036-3.904 7.53-8.895 7.53a16.377 16.377 0 0 1-9.134-2.86zm20.1-19.196a2.712 2.712 0 0 1 2.717-2.768 2.752 2.752 0 0 1 2.768 2.768v1.662c1.77-2.498 4.266-4.496 8.155-4.496 5.607 0 11.117 4.445 11.117 12.437v.092c0 7.94-5.45 12.432-11.117 12.432-4 0-6.5-1.998-8.155-4.22v8.46a2.747 2.747 0 0 1-5.495 0zm19.2 9.685v-.092c0-4.628-3.135-7.646-6.856-7.646s-6.988 3.1-6.988 7.646v.092c0 4.587 3.267 7.646 6.988 7.646s6.856-2.926 6.856-7.66zm7.66-9.68a2.712 2.712 0 0 1 2.722-2.768 2.747 2.747 0 0 1 2.768 2.768v1.32c.275-2.04 3.634-4.078 6.035-4.078a2.549 2.549 0 0 1 2.722 2.722 2.579 2.579 0 0 1-2.176 2.635c-3.904.678-6.58 4.078-6.58 8.823v7.9a2.737 2.737 0 0 1-2.768 2.722 2.702 2.702 0 0 1-2.722-2.722zm16.326.012a2.717 2.717 0 0 1 2.722-2.768 2.752 2.752 0 0 1 2.768 2.768V35.3a2.747 2.747 0 0 1-5.49 0zm8.263.01a2.712 2.712 0 0 1 2.722-2.768 2.752 2.752 0 0 1 2.768 2.768v1.126a8.492 8.492 0 0 1 7.488-3.904c5.398 0 8.533 3.63 8.533 9.175v12.906a2.676 2.676 0 0 1-2.722 2.722 2.717 2.717 0 0 1-2.788-2.722V24.07c0-3.72-1.86-5.857-5.128-5.857-3.176 0-5.398 2.227-5.398 5.948v11.122a2.747 2.747 0 0 1-5.49 0zm45.65-2.84a2.752 2.752 0 0 0-2.768 2.768v1.63c-1.77-2.498-4.266-4.5-8.156-4.5-5.607 0-11.122 4.445-11.122 12.432v.092c-.015 7.947 5.434 12.432 11.107 12.432 3.97 0 6.463-1.973 8.155-4.185-.275 4.317-2.916 6.596-7.55 6.596a14.67 14.67 0 0 1-7.371-1.901 2.187 2.187 0 0 0-.994-.224 2.319 2.319 0 0 0-2.319 2.263 2.253 2.253 0 0 0 1.529 2.182 20.679 20.679 0 0 0 9.256 2.136c4.312 0 7.67-1.02 9.853-3.22 1.993-1.998 3.058-5 3.058-9.032V15.9a2.717 2.717 0 0 0-2.681-2.768zm-9.623 20.108c-3.767 0-6.85-2.95-6.85-7.67v-.092c0-4.628 3.13-7.646 6.85-7.646s6.988 3.063 6.988 7.646v.092c0 4.582-3.262 7.67-6.988 7.67z"/>
+          <circle r="2.768" cy="6.588" cx="127.841"/>
+        </g>
+      </svg>
+    </a>
+    <span>    +    </span>
+    <a aria-label="Azure Cloud" target="_blank" rel="noopener" href="https://azure.com" title="Azure">
+      <svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="120" height="60" viewBox="0 0 52.91666 15.244921" version="1.1" id="svg8" inkscape:version="0.92.1 r15371" sodipodi:docname="Azurey.svg">
+        <defs id="defs2"/>
+        <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" transform="translate(677.9313,-313.85407)">
+          <g transform="matrix(0.03978217,0,0,0.03978217,-658.51488,317.36166)" id="layer1-1" inkscape:label="Layer 1">
+            <path inkscape:connector-curvature="0" id="path21" d="m -259.18627,274.57516 c 63.5635,-11.22863 116.06332,-20.52032 116.66629,-20.64819 l 1.09632,-0.2325 -60.01021,-71.38026 c -33.00559,-39.25915 -60.01018,-71.53249 -60.01018,-71.71853 0,-0.35223 61.96561,-170.992127 62.31396,-171.599207 0.11647,-0.20297 42.28595,72.60148 102.221586,176.482797 56.11284,97.25555 102.3751556,177.4431 102.8051496,178.19452 l 0.78184,1.36624 -190.7173956,-0.0246 -190.71736,-0.0245 115.57,-20.4157 z m 731.37889,-17.26291 c -29.03093,-1.86128 -45.91544,-18.39214 -50.38974,-49.33422 -1.19021,-8.2311 -1.19476,-8.44466 -1.31656,-61.88078 l -0.11789,-51.717227 h 12.84834 12.8483 l 0.10118,50.023887 c 0.0912,45.08514 0.14842,50.37131 0.57946,53.54292 1.74935,12.87168 5.23201,21.5276 11.16124,27.74067 4.74528,4.97242 10.30038,7.8839 17.99011,9.42882 3.62783,0.72884 13.94813,0.7303 17.25569,0.003 7.79588,-1.7156 14.0442,-5.10811 19.55617,-10.61799 6.28249,-6.28012 10.93015,-15.1903 13.17899,-25.26595 l 0.75793,-3.39586 0.0844,-50.44723 0.0844,-50.447217 h 13.11732 13.11735 v 79.304447 79.30444 h -12.98222 -12.98222 v -12.5824 c 0,-8.54933 -0.0937,-12.55118 -0.29222,-12.485 -0.16069,0.0536 -0.82744,1.07357 -1.48166,2.26667 -4.47373,8.15896 -11.92745,15.62029 -20.09501,20.1155 -9.79024,5.38827 -19.60858,7.30422 -33.02333,6.44412 z m 294.66636,-0.12816 c -10.24795,-0.7703 -21.03846,-4.29359 -29.85796,-9.74908 -18.58873,-11.49853 -29.58761,-30.45184 -32.80805,-56.53499 -1.11441,-9.02575 -1.24835,-21.14964 -0.3184,-28.81907 2.07786,-17.13682 8.81185,-33.95976 18.40106,-45.96982 2.45824,-3.07883 8.03495,-8.65553 11.11365,-11.11361 8.31379,-6.637877 18.03843,-11.279617 28.36334,-13.538327 6.01579,-1.31603 16.60968,-1.93394 23.00111,-1.34159 16.05576,1.48805 30.77105,9.04765 40.77267,20.945887 10.1615,12.08847 15.74681,28.98006 16.46007,49.77987 0.11179,3.25966 0.13889,8.97466 0.0603,12.7 l -0.143,6.77333 -56.23278,0.0712 -56.23278,0.0712 v 2.5094 c 0,7.63915 1.85722,16.33991 5.06795,23.74265 2.76877,6.38373 7.53485,13.35462 11.43714,16.72802 8.00131,6.91687 17.79386,11.05701 28.50936,12.05334 3.97318,0.3694 14.09889,-0.0195 18.62666,-0.7152 12.91802,-1.98524 25.19946,-7.052 35.11745,-14.48783 1.16688,-0.87486 2.28357,-1.69223 2.48152,-1.81635 0.28968,-0.18164 0.35814,2.10408 0.35081,11.71222 l -0.009,11.93792 -2.65743,1.64355 c -11.21971,6.93911 -24.07305,11.39481 -37.68211,13.06277 -4.06135,0.49775 -18.96443,0.71949 -23.82142,0.35441 z m 48.93919,-100.68528 c 0,-12.79609 -5.39245,-27.01096 -13.02337,-34.3305 -5.44587,-5.22367 -12.02921,-8.41603 -19.85552,-9.62822 -3.70264,-0.5735 -11.50631,-0.35262 -15.41004,0.43617 -8.25234,1.66748 -15.07811,5.29536 -21.03154,11.17821 -6.26561,6.19133 -10.96323,13.71122 -13.91756,22.27909 -1.06234,3.08091 -2.30488,8.13901 -2.69056,10.95257 l -0.18376,1.34056 h 43.05616 43.05619 z M 53.010852,253.20058 c 0.06587,-0.19403 19.161194,-50.3586 42.434086,-111.47682 l 42.314342,-111.124037 13.59583,-8.5e-4 13.5958,-8.4e-4 1.12805,2.89278 c 3.4472,8.84008 84.71032,219.821587 84.71032,219.931197 0,0.0722 -6.50875,0.13039 -14.46389,0.12923 l -14.46389,-0.003 -11.71222,-31.18282 -11.71222,-31.18281 -47.15885,-5.7e-4 -47.15886,-5.6e-4 -0.40982,1.05833 c -0.22538,0.58208 -5.229376,14.61335 -11.120031,31.18062 l -10.710221,30.12225 -14.494087,0.005 c -11.4727,0.004 -14.469109,-0.0686 -14.374339,-0.34784 z M 189.82928,167.38571 c 0,-0.0494 -7.88187,-21.41719 -17.51527,-47.48389 -18.02243,-48.766297 -19.03061,-51.700447 -20.45454,-59.529577 -0.66771,-3.67122 -1.00556,-3.77324 -1.40188,-0.42333 -0.2833,2.39448 -1.51167,7.75245 -2.45866,10.72445 -0.46988,1.47461 -8.58577,23.74972 -18.03533,49.500237 -9.44954,25.75052 -17.18099,46.92777 -17.18099,47.06055 0,0.13279 17.33551,0.24143 38.52334,0.24143 21.18783,0 38.52333,-0.0404 38.52333,-0.0899 z m 69.70889,82.10639 v -4.06127 l 46.98461,-64.58929 46.98461,-64.5893 -42.53961,-0.14111 -42.53961,-0.14111 -0.0739,-10.795 -0.0739,-10.794997 h 61.52781 61.5278 v 3.64606 3.646057 l -46.99,64.94153 c -25.8445,35.71785 -46.99,65.00162 -46.99,65.07506 0,0.0734 20.8915,0.13352 46.42555,0.13352 h 46.42556 v 10.86555 10.86556 h -65.33447 -65.33445 z m 344.78149,3.8731 c -0.10349,-0.10346 -0.18816,-35.91746 -0.18816,-79.58666 V 94.380023 h 12.84112 12.84111 v 16.368887 c 0,9.00289 0.10947,16.36889 0.2433,16.36889 0.13383,0 0.75881,-1.47368 1.38884,-3.27484 2.88711,-8.2536 7.89393,-15.96572 14.34443,-22.09509 5.81095,-5.521657 12.45235,-8.823637 20.28898,-10.087287 2.20134,-0.35497 4.064,-0.42274 8.46667,-0.30806 5.52924,0.14402 8.42001,0.54819 11.78278,1.64738 l 1.05833,0.34594 v 13.328937 13.32893 l -3.03389,-1.51868 c -5.3592,-2.68267 -10.64714,-3.74429 -17.00389,-3.41375 -4.13707,0.21513 -6.85252,0.74636 -10.16,1.98766 -6.80519,2.55399 -12.32518,7.06198 -16.18228,13.2155 -5.58374,8.90817 -9.56612,20.35873 -10.7407,30.88287 -0.21079,1.88864 -0.33508,17.27019 -0.38459,47.59327 l -0.0731,44.80278 H 617.1582 c -6.95771,0 -12.73506,-0.0847 -12.83852,-0.18816 z M -488.0685,252.80762 c 0,-0.1005 28.27652,-49.18632 62.83671,-109.07964 l 62.8367,-108.896937 73.22891,-61.45385 c 40.2759,-33.79961 73.33737,-61.49516 73.46992,-61.54567 0.13255,-0.0505 -0.39727,1.28299 -1.17738,2.96333 -0.78011,1.68034 -36.56244,78.4296699 -79.51629,170.55406 l -78.09789,167.498887 -56.79034,0.0712 c -31.23468,0.0392 -56.79034,-0.011 -56.79034,-0.11142 z" style="fill:#ecf1f3;fill-opacity:1;stroke-width:0.28222221"/>
+          </g>
+        </g>
+      </svg>
+    </a>
+</div>
+
+<div class="content" role="main">
+
+  <!-- Highlight Card -->
+  <div class="card highlight-card card-small">
+
+    <svg id="rocket" xmlns="http://www.w3.org/2000/svg" width="101.678" height="101.678" viewBox="0 0 101.678 101.678">
+      <title>Rocket Ship</title>
+      <g id="Group_83" data-name="Group 83" transform="translate(-141 -696)">
+        <circle id="Ellipse_8" data-name="Ellipse 8" cx="50.839" cy="50.839" r="50.839" transform="translate(141 696)" fill="#dd0031"/>
+        <g id="Group_47" data-name="Group 47" transform="translate(165.185 720.185)">
+          <path id="Path_33" data-name="Path 33" d="M3.4,42.615a3.084,3.084,0,0,0,3.553,3.553,21.419,21.419,0,0,0,12.215-6.107L9.511,30.4A21.419,21.419,0,0,0,3.4,42.615Z" transform="translate(0.371 3.363)" fill="#fff"/>
+          <path id="Path_34" data-name="Path 34" d="M53.3,3.221A3.09,3.09,0,0,0,50.081,0,48.227,48.227,0,0,0,18.322,13.437c-6-1.666-14.991-1.221-18.322,7.218A33.892,33.892,0,0,1,9.439,25.1l-.333.666a3.013,3.013,0,0,0,.555,3.553L23.985,43.641a2.9,2.9,0,0,0,3.553.555l.666-.333A33.892,33.892,0,0,1,32.647,53.3c8.55-3.664,8.884-12.326,7.218-18.322A48.227,48.227,0,0,0,53.3,3.221ZM34.424,9.772a6.439,6.439,0,1,1,9.106,9.106,6.368,6.368,0,0,1-9.106,0A6.467,6.467,0,0,1,34.424,9.772Z" transform="translate(0 0.005)" fill="#fff"/>
+        </g>
+      </g>
+    </svg>
+
+    <span>{{ title }}</span>
+
+    <svg id="rocket-smoke" xmlns="http://www.w3.org/2000/svg" width="516.119" height="1083.632" viewBox="0 0 516.119 1083.632">
+      <title>Rocket Ship Smoke</title>
+      <path id="Path_40" data-name="Path 40" d="M644.6,141S143.02,215.537,147.049,870.207s342.774,201.755,342.774,201.755S404.659,847.213,388.815,762.2c-27.116-145.51-11.551-384.124,271.9-609.1C671.15,139.365,644.6,141,644.6,141Z" transform="translate(-147.025 -140.939)" fill="#f5f5f5"/>
+    </svg>
+
+  </div>
+
+  <!-- Resources -->
+  <h2>Ngrx Redux Pattern</h2>
+  <p>Use the buttons to try different API features and see the updates on your dev console or below</p>
+  <br/><br/>
+  <p>NOTE: To submit a test order you must first click "User Library" to get a working set.
+    <br/>Try refreshing and following those steps to get a valid submission.
+    <br/>You can then click "Order History" to see the new entry in the database.</p>
+  <br/>
+  <br/>
+  
+  <div class="card-container">
+    <a class="card" target="_blank" rel="noopener" (click)="submitApiRequest(1)">
+      <svg class="material-icons" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M12,8A3,3 0 0,0 15,5A3,3 0 0,0 12,2A3,3 0 0,0 9,5A3,3 0 0,0 12,8M12,11.54C9.64,9.35 6.5,8 3,8V19C6.5,19 9.64,20.35 12,22.54C14.36,20.35 17.5,19 21,19V8C17.5,8 14.36,9.35 12,11.54Z" />
+      </svg>
+      <span>Music Catalog</span>
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    </a>
+
+    <a class="card" target="_blank" rel="noopener" (click)="submitApiRequest(2)">
+      <svg class="material-icons" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M19,9H2V11H19V9M19,5H2V7H19V5M2,15H15V13H2V15M17,13V19L22,16L17,13Z" />
+      </svg>
+      <span>Artist Listing</span>
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </a>
+
+    <a class="card" target="_blank" rel="noopener" (click)="submitApiRequest(3)">
+      <svg class="material-icons" width="24" height="24" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M15,6H3V8H15V6M15,10H3V12H15V10M3,16H11V14H3V16M17,6V14.18C16.69,14.07 16.35,14 16,14A3,3 0 0,0 13,17A3,3 0 0,0 16,20A3,3 0 0,0 19,17V8H22V6H17Z" />
+    </svg>
+      <span>Genre Listing</span>
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </a>
+
+    <a class="card" target="_blank" rel="noopener" (click)="submitApiRequest(4)">
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
+      <span>User Music Library</span>
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </a>
+
+    <a class="card" target="_blank" rel="noopener" (click)="submitApiRequest(5)">
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><rect fill="none" height="24" width="24"/></g><g><g><path d="M14.73,13.31C15.52,12.24,16,10.93,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.43,0,2.74-0.48,3.81-1.27L19.59,21L21,19.59L14.73,13.31z M9.5,14C7.01,14,5,11.99,5,9.5S7.01,5,9.5,5S14,7.01,14,9.5 S11.99,14,9.5,14z"/><polygon points="10.29,8.44 9.5,6 8.71,8.44 6.25,8.44 8.26,10.03 7.49,12.5 9.5,10.97 11.51,12.5 10.74,10.03 12.75,8.44"/></g></g></svg>
+      <span>Order History</span>
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </a>
+
+    <a class="card" target="_blank" rel="noopener" (click)="submitApiRequest(6)">
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+      <span>Submit Test Order</span>
+      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </a>
+
+  </div>
+
+  <br/>
+  <br/>
+
+  <div class="card-container json-container">
+    <div class="json-title">
+      <p>JSON Viewer:</p>
+    <!-- <p style="margin-bottom: 10px;"></p> -->
+    </div>
+    <div class="json-viewer">
+      <ngx-json-viewer [json]="data" [expanded]="false" [depth]="4"></ngx-json-viewer>
+    </div>
+  </div>
+
+  <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
+    <title>Gray Clouds Background</title>
+    <path id="Path_39" data-name="Path 39" d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z" transform="translate(142.69 -634.312)" fill="#eee"/>
+  </svg>
+
+</div>
+
+<router-outlet></router-outlet>
