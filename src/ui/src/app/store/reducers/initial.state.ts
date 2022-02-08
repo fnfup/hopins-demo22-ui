@@ -11,4 +11,5 @@ export const initialState: IAppState = {
     userOrders: undefined,
     orderStatus: OrderStatusEnum.none,
     orderCart: [],
+    authEvent: undefined
 }

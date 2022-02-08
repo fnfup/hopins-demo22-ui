@@ -27,7 +27,9 @@ export const appDataReducer = createReducer<IAppState>(
     on( AppActions.UpdateOrderItems,
         (state, { orderCart }) => ({ ...state, orderCart }) ),
     on( AppActions.ClearOrderItems, 
-        (state) => ({ ...state, orderCart: [] }) )
+        (state) => ({ ...state, orderCart: [] }) ),
+    on( AppActions.UpdateAuthEventStatus,
+        (state, { authEvent }) => ({...state, authEvent }) )
 );
 
 export const metaReducers: MetaReducer[] = [debugReducer];

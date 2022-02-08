@@ -48,3 +48,8 @@ export const selectOrderCart = createSelector(
     appStateSelector,
     state => state.orderCart
 );
+
+export const selectAuthEventStatus = createSelector(
+    appStateSelector,
+    state => state.authEvent
+);

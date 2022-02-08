@@ -18,14 +18,14 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
-import { MsalBroadcastService, MsalGuard, MsalInterceptor, MsalModule, MsalService } from '@azure/msal-angular';
+import { MsalBroadcastService, MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent, MsalService } from '@azure/msal-angular';
 import { InteractionType } from '@azure/msal-browser';
 import { msalSPAClientApp } from './authentication/msal.clientapp';
 import { protectedResourceMap } from './authentication/protected.resources';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     CommonModule,
@@ -49,10 +49,10 @@ import { protectedResourceMap } from './authentication/protected.resources';
     MsalModule.forRoot(
       msalSPAClientApp(),
       {
-        interactionType: InteractionType.Popup, // MSAL Guard Configuration
+        interactionType: InteractionType.Redirect, // MSAL Guard Configuration
       },
       {
-        interactionType: InteractionType.Popup, // MSAL Interceptor Configuration
+        interactionType: InteractionType.Redirect, // MSAL Interceptor Configuration
         protectedResourceMap
       }),
 
@@ -70,6 +70,6 @@ import { protectedResourceMap } from './authentication/protected.resources';
     MsalBroadcastService,
     RequestApiService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, MsalRedirectComponent]
 })
 export class AppModule { }

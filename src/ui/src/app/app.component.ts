@@ -1,13 +1,17 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as _ from 'lodash';
-import { catchError, EMPTY, mergeMap, of, take, tap, withLatestFrom } from 'rxjs';
+import { EMPTY, of} from 'rxjs';
 import { UserMusic } from './lib/models/library.models';
 import { MusicTrack } from './lib/models/catalog.models';
 import { AppActions } from './store/actions/app.actions';
 import { IAppState } from './store/models/appstate.model';
-import { appStateSelector, selecMusicCatalog, selectUserLibrary } from './store/selectors/selectors';
+import { appStateSelector, selecMusicCatalog, selectAuthEventStatus, selectUserLibrary } from './store/selectors/selectors';
 import { MusicOrderDto } from './lib/models/order.models';
+import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
+import { catchError, filter, mergeMap, take, tap, withLatestFrom } from 'rxjs/operators';
+import { EventMessage, EventType } from '@azure/msal-browser';
+import { Deserialize } from './lib/helpers/deserialize';
 
 @Component({
   selector: 'app-root',
@@ -24,16 +28,51 @@ export class AppComponent {
 
   isIframe = window !== window.parent && !window.opener;
 
+  isAuthenticated = false;
+
   constructor(
     private store: Store<IAppState>,
-    private cdr: ChangeDetectorRef) {
+    private cdr: ChangeDetectorRef,
+    private auth: MsalService,
+    private authEvents: MsalBroadcastService) {
   }
 
   ngOnInit() {
+    // Log auth events to the store
+    this.authEvents.msalSubject$
+    .pipe(
+      tap((event: EventMessage) => {
+          this.store.dispatch(
+            AppActions.UpdateAuthEventStatus({ authEvent: Deserialize(event) }));
+      })
+    ).subscribe();
+
+
+    if (!this.isAuthenticated) {
+      //  this.autoLogin()
+    }
+
     this.streamAppState();
 
-    this.store.dispatch(
-      AppActions.SearchMusicCatalog({ filter: {} }))
+    // avoid sending api request before auth
+    this.store.pipe(
+      select(selectAuthEventStatus),
+      filter((event: EventMessage) => !!event && event.eventType == EventType.HANDLE_REDIRECT_END),
+      take(1),
+      tap(ev => {
+        this.store.dispatch(
+          AppActions.SearchMusicCatalog({ filter: {} }))
+      })
+    ).subscribe();
+  }
+
+  autoLogin() {
+    this.auth.loginPopup()
+      .subscribe(result => {
+        const activeAccount = this.auth.instance.getActiveAccount();
+        this.isAuthenticated = !!activeAccount;
+        this.cdr.detectChanges();
+      });
   }
 
   streamAppState() {
@@ -105,7 +144,7 @@ export class AppComponent {
                 userId: 2
               };
               this.store.dispatch(
-                AppActions.SubmitOrder({ payload: order}));
+                AppActions.SubmitOrder({ payload: order }));
             }
           }),
           catchError(err => EMPTY)

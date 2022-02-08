@@ -6,7 +6,7 @@ export function msalSPAClientApp() {
         { // MSAL Configuration
             auth: {
                 clientId: environment.clientId,
-                authority: environment.tenantId,
+                authority: 'https://login.microsoftonline.com/' + environment.tenantId,
                 redirectUri: environment.redirectUri
             },
             cache: {

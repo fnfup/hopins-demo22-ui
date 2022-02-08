@@ -1,7 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { catchError, EMPTY, map, mergeMap, of, switchMap, withLatestFrom } from "rxjs";
+import { of } from "rxjs";
+import { catchError, map, mergeMap, switchMap, withLatestFrom } from "rxjs/operators";
 import { Deserialize } from "src/app/lib/helpers/deserialize";
 import { MusicCatalogDto, MusicTrack } from "src/app/lib/models/catalog.models";
 import { LibraryStatusDto, LibraryStatusEnum, UserLibraryDto } from "src/app/lib/models/library.models";

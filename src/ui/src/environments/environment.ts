@@ -8,7 +8,7 @@ export const environment = {
   //requestApi: "http://localhost:8080",
   clientId: "dff2e8ce-7293-4ecd-a451-fd4fea5ec4d5",
   tenantId: "b02b0c6d-6218-42d2-830a-310854d90550",
-  redirectUri: "https://localhost:4200/login/oauth2/code/"
+  redirectUri: "http://localhost:4200/login/oauth2/code/"
 };
 
 /*
