@@ -13,6 +13,7 @@ export enum AppActionType {
     
     // auth events 
     UpdateAuthEventStatus = '[Auth] update new auth event status',
+    UpdateActiveUserDetails = '[Auth] update login user details',
 
     // actions that will be for effects only
     RequestUserLibrary = '[Library] request user library data',

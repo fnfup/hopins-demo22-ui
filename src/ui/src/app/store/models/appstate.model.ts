@@ -1,4 +1,4 @@
-import { EventMessage } from "@azure/msal-browser";
+import { AccountInfo, EventMessage } from "@azure/msal-browser";
 import { RouterReducerState } from "@ngrx/router-store";
 import { MusicArtist, MusicCatalogDto, MusicGenre, SearchFilter } from "src/app/lib/models/catalog.models";
 import { LibraryStatusDto, UserLibraryDto } from "src/app/lib/models/library.models";
@@ -19,5 +19,6 @@ export interface IAppState {
     userOrders?: UserOrdersDto;
     orderStatus: OrderStatusEnum;
     orderCart: number[];
+    userDetails: AccountInfo;
     authEvent: EventMessage;
 }

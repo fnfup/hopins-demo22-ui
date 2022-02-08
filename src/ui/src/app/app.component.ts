@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import * as _ from 'lodash';
-import { EMPTY, of} from 'rxjs';
+import { EMPTY, of } from 'rxjs';
 import { UserMusic } from './lib/models/library.models';
 import { MusicTrack } from './lib/models/catalog.models';
 import { AppActions } from './store/actions/app.actions';
@@ -40,39 +40,41 @@ export class AppComponent {
   ngOnInit() {
     // Log auth events to the store
     this.authEvents.msalSubject$
-    .pipe(
-      tap((event: EventMessage) => {
+      .pipe(
+        tap((event: EventMessage) => {
           this.store.dispatch(
             AppActions.UpdateAuthEventStatus({ authEvent: Deserialize(event) }));
-      })
-    ).subscribe();
-
-
-    if (!this.isAuthenticated) {
-      //  this.autoLogin()
-    }
+        })
+      ).subscribe();
 
     this.streamAppState();
 
+    this.streamAuthFlow();
+  }
+
+  streamAuthFlow() {
     // avoid sending api request before auth
     this.store.pipe(
       select(selectAuthEventStatus),
-      filter((event: EventMessage) => !!event && event.eventType == EventType.HANDLE_REDIRECT_END),
+      filter((event: EventMessage) =>
+        !!event && event.eventType == EventType.HANDLE_REDIRECT_END),
       take(1),
       tap(ev => {
+        this.isAuthenticated = this.auth.instance.getAllAccounts().length > 0;
+
+        if (this.isAuthenticated) {
+          const authentiatedUser = this.auth.instance.getAllAccounts()[0];
+          this.store.dispatch(
+            AppActions.UpdateActiveUserDetails(
+              { userDetails: Deserialize(authentiatedUser) }));
+        }
+
+        this.cdr.detectChanges();
+
         this.store.dispatch(
           AppActions.SearchMusicCatalog({ filter: {} }))
       })
     ).subscribe();
-  }
-
-  autoLogin() {
-    this.auth.loginPopup()
-      .subscribe(result => {
-        const activeAccount = this.auth.instance.getActiveAccount();
-        this.isAuthenticated = !!activeAccount;
-        this.cdr.detectChanges();
-      });
   }
 
   streamAppState() {
