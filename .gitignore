@@ -31,3 +31,12 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Angular Builds ###
+/dist
+/src/main/resources/static
+# /src/main/ui/remote-profile
+.history/*
+**.history*
+node_modules
+/node_module

@@ -26,7 +26,11 @@ export class LibraryEffects {
                 return of(AppActions
                     .UpdateLibrary({ musicLibrary: <UserLibraryDto>results }));
             }),
-            catchError(err => EMPTY)
+            catchError((err, originalObs$) => {
+                console.log(err);
+                // this allows us to continue processing events
+                return originalObs$
+            })
         ), {dispatch: true});
         
     
@@ -59,13 +63,21 @@ export class LibraryEffects {
                 return of(
                     AppActions.UpdateMusicCatalog({ musicCatalog: update }));
             }),
-            catchError(err => EMPTY)
+            catchError((err, originalObs$) => {
+                console.log(err);
+                // this allows us to continue processing events
+                return originalObs$
+            })
         ), { dispatch: true });
 
         toggleLibraryStatus$ = createEffect(() => this.actions$
         .pipe(
             ofType(AppActions.ToggleLibraryStatus),
             switchMap(action => this.apiService.toggleLibraryStatus(action.userLibraryId)),
-            catchError(err => EMPTY)
+            catchError((err, originalObs$) => {
+                console.log(err);
+                // this allows us to continue processing events
+                return originalObs$
+            })
         ), { dispatch: false });
 }
