@@ -1,4 +1,5 @@
-import { mergeMap, Observable, of, pipe } from "rxjs";
+import { Observable, of } from "rxjs";
+import { mergeMap } from "rxjs/operators";
 import { SearchFilter } from "../models/catalog.models";
 import { Deserialize } from "./deserialize";
 import { appendFilterProps } from "./filter.helpers";

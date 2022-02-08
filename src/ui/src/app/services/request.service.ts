@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { SearchFilter } from '../lib/models/catalog.models';
 import { MusicOrderDto } from '../lib/models/order.models';
@@ -19,6 +19,11 @@ const endpoints = {
     purchase: "orders/purchase" // post
 }
 
+const httpPostOptions = {
+    headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+    })
+};
 
 @Injectable({
     providedIn: 'root'
@@ -38,7 +43,7 @@ export class RequestApiService {
 
     getLibraryStatus(request: LibraryStatusRequestDto) {
         const url = apiHost + endpoints.libStatus;
-        return this.http.post(url, request).pipe();
+        return this.http.post(url, request, httpPostOptions).pipe();
     }
 
     getArtists() {
@@ -53,7 +58,7 @@ export class RequestApiService {
 
     searchMusicCatalog(filter: SearchFilter) {
         const url = apiHost + endpoints.catalog;
-        return this.http.post(url, filter).pipe();
+        return this.http.post(url, filter, httpPostOptions).pipe();
     }
 
     getUserOrders(userId: number) {
@@ -63,7 +68,7 @@ export class RequestApiService {
 
     submitOrderRequest(order: MusicOrderDto) {
         const url = apiHost + endpoints.purchase;
-        return this.http.post(url, order).pipe();
+        return this.http.post(url, order, httpPostOptions).pipe();
     }
 
 }

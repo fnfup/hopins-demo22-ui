@@ -1,9 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { select, Store } from "@ngrx/store";
-import { catchError, EMPTY, map, mergeMap, of, switchMap, withLatestFrom } from "rxjs";
+import { of } from "rxjs";
+import { catchError, map, mergeMap, switchMap, withLatestFrom } from "rxjs/operators";
 import { UpdateRequestFilters } from "src/app/lib/helpers/filter.operator";
-import { MusicArtist, MusicCatalogDto, MusicGenre, MusicTrack } from "src/app/lib/models/catalog.models";
+import { MusicArtist, MusicCatalogDto, MusicGenre } from "src/app/lib/models/catalog.models";
 import { LibraryStatusRequestDto } from "src/app/lib/models/library.models";
 import { RequestApiService } from "src/app/services/request.service";
 import { AppActions } from "../actions/app.actions";
@@ -40,7 +41,11 @@ export class CatalogEffects {
                     AppActions.RequestLibraryStatus({ request: request })
                 ]
             }),
-            catchError(err => EMPTY)
+            catchError((err, originalObs$) => {
+                console.log(err);
+                // this allows us to continue processing events
+                return originalObs$
+            })
         ), { dispatch: true });
 
 
@@ -52,7 +57,11 @@ export class CatalogEffects {
                     AppActions
                     .UpdateArtistList({ artists: <MusicArtist[]>results }));
             }),
-            catchError(err => EMPTY)
+            catchError((err, originalObs$) => {
+                console.log(err);
+                // this allows us to continue processing events
+                return originalObs$
+            })
         ), { dispatch: true });
 
         requestAvailableGenres$ = createEffect(() => this.actions$.pipe(
@@ -63,7 +72,11 @@ export class CatalogEffects {
                     AppActions
                     .UpdateGenreList({ genres: <MusicGenre[]>results }));
             }),
-            catchError(err => EMPTY)
+            catchError((err, originalObs$) => {
+                console.log(err);
+                // this allows us to continue processing events
+                return originalObs$
+            })
         ), { dispatch: true });
 
 }

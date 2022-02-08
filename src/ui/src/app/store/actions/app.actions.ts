@@ -1,3 +1,4 @@
+import { EventMessage } from "@azure/msal-browser";
 import { createAction, props } from "@ngrx/store";
 import { MusicArtist, MusicCatalogDto, MusicGenre, SearchFilter } from "src/app/lib/models/catalog.models";
 import { LibraryStatusDto, LibraryStatusRequestDto, UserLibraryDto } from "src/app/lib/models/library.models";
@@ -49,6 +50,14 @@ export namespace AppActions {
         AppActionType.UpdateGenreList,
         props<{ genres: MusicGenre[] }>()
     );
+
+
+    // auth actions 
+    export const UpdateAuthEventStatus = createAction(
+        AppActionType.UpdateAuthEventStatus,
+        props<{ authEvent: EventMessage }>()
+    )
+
 
     // effect actions
     export const RequestUserLibrary = createAction(

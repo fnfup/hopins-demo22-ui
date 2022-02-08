@@ -10,7 +10,9 @@ export enum AppActionType {
     UpdateMusicCatalog = '[Catalog] update music catalog data',
     UpdateArtistList = '[Catalog] update list of artists',
     UpdateGenreList = '[Catalog] update list of genres',
-
+    
+    // auth events 
+    UpdateAuthEventStatus = '[Auth] update new auth event status',
 
     // actions that will be for effects only
     RequestUserLibrary = '[Library] request user library data',
