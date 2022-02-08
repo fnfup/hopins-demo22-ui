@@ -1,0 +1,49 @@
+# Maven
+# Build your Java project and run tests with Apache Maven.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'src/ui'
+    customCommand: 'install -g @angular/cli@latest'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'src/ui'
+    customCommand: 'install'
+
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    workingDir: 'src/ui'
+    customCommand: 'run build'
+
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'package'
+
+- task: AzureSpringCloud@0
+  inputs:
+    azureSubscription: 'az-tenant'
+    Action: 'Deploy'
+    AzureSpringCloud: '/subscriptions/5aa83cbb-a65a-48ec-a3be-089c92ecae61/resourceGroups/az-hopkins-demo22/providers/Microsoft.AppPlatform/Spring/hopkins-demo22-api-sc'
+    AppName: 'hopkins-demo22-ui'
+    UseStagingDeployment: false
+    DeploymentName: 'default'
