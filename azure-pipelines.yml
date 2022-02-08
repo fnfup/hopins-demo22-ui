@@ -35,8 +35,10 @@ steps:
       # Write your commands here
       
       echo 'Printing output of ng build'
+      echo 'ls -a src dir $(Build.SourcesDirectory)'
       ls -a $(Build.SourcesDirectory)
-      ls -a $(Build.SourcesDirectory)/src/mainresources/static
+      echo 'ls -a static resources dir'
+      ls -a $(Build.SourcesDirectory)/src/main/resources/static
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
