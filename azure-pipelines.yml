@@ -28,6 +28,15 @@ steps:
     workingDir: 'src/ui'
     customCommand: 'run build'
 
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      echo 'Printing output of ng build'
+      ls -a $(Build.SourcesDirectory)
+      ls -a $(Build.SourcesDirectory)/src/mainresources/static
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
