@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   requestApi: "https://hopkins-demo22-api-sc-hopkins-demo22-api.azuremicroservices.io"
-  //requestApi: "localhost:8080"
+  // requestApi: "localhost:8080"
 };
 
 /*
