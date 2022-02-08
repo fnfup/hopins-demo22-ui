@@ -1,7 +1,7 @@
 import { BrowserCacheLocation, PublicClientApplication } from "@azure/msal-browser";
 import { environment } from "../../environments/environment";
 
-function msalSPAClientApp() {
+export function msalSPAClientApp() {
     return new PublicClientApplication(
         { // MSAL Configuration
             auth: {

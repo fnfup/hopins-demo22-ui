@@ -20,6 +20,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MsalBroadcastService, MsalGuard, MsalInterceptor, MsalModule, MsalService } from '@azure/msal-angular';
 import { InteractionType } from '@azure/msal-browser';
+import { msalSPAClientApp } from './authentication/msal.clientapp';
+import { protectedResourceMap } from './authentication/protected.resources';
 
 @NgModule({
   declarations: [
@@ -47,10 +49,11 @@ import { InteractionType } from '@azure/msal-browser';
     MsalModule.forRoot(
       msalSPAClientApp(),
       {
-        interactionType: InteractionType.Redirect, // MSAL Guard Configuration
+        interactionType: InteractionType.Popup, // MSAL Guard Configuration
       },
       {
-        interactionType: InteractionType.Redirect, // MSAL Interceptor Configuration
+        interactionType: InteractionType.Popup, // MSAL Interceptor Configuration
+        protectedResourceMap
       }),
 
     // final
@@ -70,11 +73,3 @@ import { InteractionType } from '@azure/msal-browser';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-function MsalAuthClient(MsalAuthClient: any): any[] | import("@angular/core").Type<any> | import("@angular/core").ModuleWithProviders<{}> {
-  throw new Error('Function not implemented.');
-}
-
-function msalSPAClientApp(): import("@azure/msal-browser").IPublicClientApplication {
-  throw new Error('Function not implemented.');
-}
-
