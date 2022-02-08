@@ -40,7 +40,11 @@ export class CatalogEffects {
                     AppActions.RequestLibraryStatus({ request: request })
                 ]
             }),
-            catchError(err => EMPTY)
+            catchError((err, originalObs$) => {
+                console.log(err);
+                // this allows us to continue processing events
+                return originalObs$
+            })
         ), { dispatch: true });
 
 
@@ -52,7 +56,11 @@ export class CatalogEffects {
                     AppActions
                     .UpdateArtistList({ artists: <MusicArtist[]>results }));
             }),
-            catchError(err => EMPTY)
+            catchError((err, originalObs$) => {
+                console.log(err);
+                // this allows us to continue processing events
+                return originalObs$
+            })
         ), { dispatch: true });
 
         requestAvailableGenres$ = createEffect(() => this.actions$.pipe(
@@ -63,7 +71,11 @@ export class CatalogEffects {
                     AppActions
                     .UpdateGenreList({ genres: <MusicGenre[]>results }));
             }),
-            catchError(err => EMPTY)
+            catchError((err, originalObs$) => {
+                console.log(err);
+                // this allows us to continue processing events
+                return originalObs$
+            })
         ), { dispatch: true });
 
 }
