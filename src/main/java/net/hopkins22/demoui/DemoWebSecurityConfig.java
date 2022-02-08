@@ -21,11 +21,7 @@ public class DemoWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         System.out.println("Setting up http security");
-        http.requiresChannel()
-                // .antMatchers("/login/oauth2/code/").requiresInsecure()
-                .anyRequest().requiresSecure()
-                .and()
-                .cors();
+        http.cors();
     }
 
 }
