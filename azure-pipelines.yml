@@ -28,12 +28,23 @@ steps:
     workingDir: 'src/ui'
     customCommand: 'run build'
 
+- task: Bash@3
+  inputs:
+    targetType: 'inline'
+    script: |
+      # Write your commands here
+      
+      echo 'Printing output of ng build'
+      echo 'ls -a src dir $(Build.SourcesDirectory)'
+      ls -a $(Build.SourcesDirectory)
+      echo 'ls -a static resources dir'
+      ls -a $(Build.SourcesDirectory)/src/main/resources/static
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
+    jdkVersionOption: '1.11'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
