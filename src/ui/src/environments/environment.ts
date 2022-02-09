@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   requestApi: "https://hopkins-demo22-api-sc-hopkins-demo22-api.azuremicroservices.io",
-  //requestApi: "http://localhost:8080",
+  // requestApi: "http://localhost:8080",
   clientId: "dff2e8ce-7293-4ecd-a451-fd4fea5ec4d5",
   tenantId: "b02b0c6d-6218-42d2-830a-310854d90550",
   redirectUri: "http://localhost:4200/login/oauth2/code/"
