@@ -12,6 +12,14 @@ export type ProtectedResourceMap = Map<string, (string | ProtectedResourceScopes
 //     string, string[]
 // ]
 
+export const authScopeRequests: string[] = [
+    'user.read',
+    'openid',
+    'email',
+    'profile',
+    "api://446ede82-f415-4e99-aed6-4d0e4ef93579/Full.Access"
+]
+
 export type ProtectedResourceEntry = (string | ProtectedResourceScopes)[];
 
 const demoApi = "https://hopkins-demo22-api-sc-hopkins-demo22-api.azuremicroservices.io";
@@ -30,7 +38,10 @@ const localApiScopes: ProtectedResourceEntry = [
 
 const azureMsGraph = "https://graph.microsoft.com/v1.0/me";
 const azureMsGraphScopes: ProtectedResourceEntry = [
-    'user.read'
+    'user.read',
+    'openid',
+    'email',
+    'profile'
 ];
 
 export const protectedResourceMap: ProtectedResourceMap = new Map([
