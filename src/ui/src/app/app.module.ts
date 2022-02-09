@@ -21,7 +21,7 @@ import { MatListModule } from '@angular/material/list';
 import { MsalBroadcastService, MsalGuard, MsalInterceptor, MsalModule, MsalRedirectComponent, MsalService } from '@azure/msal-angular';
 import { InteractionType } from '@azure/msal-browser';
 import { msalSPAClientApp } from './authentication/msal.clientapp';
-import { protectedResourceMap } from './authentication/protected.resources';
+import { authScopeRequests, protectedResourceMap } from './authentication/protected.resources';
 
 @NgModule({
   declarations: [
@@ -50,6 +50,9 @@ import { protectedResourceMap } from './authentication/protected.resources';
       msalSPAClientApp(),
       {
         interactionType: InteractionType.Redirect, // MSAL Guard Configuration
+        authRequest: {
+          scopes: authScopeRequests
+        }
       },
       {
         interactionType: InteractionType.Redirect, // MSAL Interceptor Configuration
